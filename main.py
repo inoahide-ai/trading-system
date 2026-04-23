@@ -1,1 +1,1 @@
-
+print("Trading system starting...")
