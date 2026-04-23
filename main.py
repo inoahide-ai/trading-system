@@ -1,7 +1,10 @@
-import time
+from flask import Flask
 
-print("Trading system starting...")
+app = Flask(__name__)
 
-while True:
-    print("Running...")
-    time.sleep(60)
+@app.route("/")
+def home():
+    return "Trading system is running 🚀"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
