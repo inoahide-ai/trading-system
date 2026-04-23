@@ -7,6 +7,6 @@ def get_market_status():
     data = response.json()
     
     return {
-        "symbol": data["symbol"],
+       "symbol": data.get("symbol", "BTCUSDT")
         "price": data["price"]
     }
