@@ -22,6 +22,6 @@ def get_market_status():
             "change_24h": data.get("ethereum", {}).get("usd_24h_change", "unknown")
         },
         "source": "coingecko",
-        "raw": data,
+
         "updated_at_utc": datetime.now(timezone.utc).isoformat()
     }
