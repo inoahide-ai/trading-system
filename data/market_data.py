@@ -9,19 +9,29 @@ def get_market_status():
         "include_24hr_change": "true"
     }
 
-    response = requests.get(url, params=params, timeout=10)
-    data = response.json()
+    try:
+        response = requests.get(url, params=params, timeout=10)
+        data = response.json()
 
-    return {
-        "BTC": {
-            "price": data.get("bitcoin", {}).get("usd", "unknown"),
-            "change_24h": data.get("bitcoin", {}).get("usd_24h_change", "unknown")
-        },
-        "ETH": {
-            "price": data.get("ethereum", {}).get("usd", "unknown"),
-            "change_24h": data.get("ethereum", {}).get("usd_24h_change", "unknown")
-        },
-        "source": "coingecko",
+        btc = data.get("bitcoin", {})
+        eth = data.get("ethereum", {})
 
-        "updated_at_utc": datetime.now(timezone.utc).isoformat()
-    }
+        return {
+            "BTC": {
+                "price": btc.get("usd", "unknown"),
+                "change_24h": btc.get("usd_24h_change", "unknown")
+            },
+            "ETH": {
+                "price": eth.get("usd", "unknown"),
+                "change_24h": eth.get("usd_24h_change", "unknown")
+            },
+            "source": "coingecko",
+            "updated_at_utc": datetime.now(timezone.utc).isoformat()
+        }
+
+    except Exception as e:
+        return {
+            "error": str(e),
+            "source": "coingecko",
+            "updated_at_utc": datetime.now(timezone.utc).isoformat()
+        }
