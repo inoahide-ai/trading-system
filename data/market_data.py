@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime, timezone
 
 def get_market_status():
     url = "https://api.coingecko.com/api/v3/simple/price"
@@ -14,5 +15,5 @@ def get_market_status():
         "symbol": "BTCUSD",
         "price": data.get("bitcoin", {}).get("usd", "unknown"),
         "source": "coingecko",
-        "raw": data
+        "updated_at_utc": datetime.now(timezone.utc).isoformat()
     }
